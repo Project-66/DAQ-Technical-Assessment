@@ -1,4 +1,5 @@
 import net from "net";
+import { isNumberObject } from "util/types";
 import { WebSocket, WebSocketServer } from "ws";
 
 interface VehicleData {
@@ -16,15 +17,26 @@ tcpServer.on("connection", (socket) => {
 
   socket.on("data", (msg) => {
     const message: string = msg.toString();
+    const msgJson = JSON.parse(message);
 
     console.log(`Received: ${message}`);
-    
+    console.log(`Type: ${typeof msgJson.battery_temperature}`);
+
+    if (typeof msgJson.battery_temperature === "number" 
+      && isFinite(msgJson.battery_temperature)
+    ) {
+      console.log(`Valid number!`);
+    }
+
+    // Need to find a way to check if a number is a float or not
+
     // Send JSON over WS to frontend clients
     websocketServer.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message);
       }
     });
+    
   });
 
   socket.on("end", () => {
