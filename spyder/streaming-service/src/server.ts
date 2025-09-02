@@ -17,25 +17,31 @@ tcpServer.on("connection", (socket) => {
 
   socket.on("data", (msg) => {
     const message: string = msg.toString();
+
+    // TASK 1
     const msgJson = JSON.parse(message);
+    const battTemp = msgJson.battery_temperature;
 
     console.log(`Received: ${message}`);
-    console.log(`Type: ${typeof msgJson.battery_temperature}`);
 
-    if (typeof msgJson.battery_temperature === "number" 
-      && isFinite(msgJson.battery_temperature)
-    ) {
-      console.log(`Valid number!`);
+    const battTempString = battTemp.toString();
+    var isFloat = true;
+
+    // checks if the battery temperature passed is a number, and then
+    // checks if the string of said number includes a decimal point.
+    if (Number.isInteger(battTemp) && battTempString.includes(".")) {
+      isFloat = false;
     }
 
-    // Need to find a way to check if a number is a float or not
+    if (typeof battTemp === "number" && isFloat) {
+      // Send JSON over WS to frontend clients
+      websocketServer.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(message);
+        }
+      });
+    }
 
-    // Send JSON over WS to frontend clients
-    websocketServer.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
     
   });
 
