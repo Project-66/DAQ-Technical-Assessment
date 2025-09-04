@@ -12,6 +12,9 @@ const WS_PORT = 8080;
 const tcpServer = net.createServer();
 const websocketServer = new WebSocketServer({ port: WS_PORT });
 
+// Used for Task 2
+var timestamps = new Array();
+
 tcpServer.on("connection", (socket) => {
   console.log("TCP client connected");
 
@@ -33,7 +36,28 @@ tcpServer.on("connection", (socket) => {
       isFloat = false;
     }
 
+    // TASK 2
+
     if (typeof battTemp === "number" && isFloat) {
+
+      // TASK 2
+      
+      if (battTemp > 80 || battTemp < 20) {
+        timestamps.push(msgJson.timestamp);
+      }
+
+      // check if the array has entries before iterating, to prevent runtime errors
+      const tLen = timestamps.length;
+      while (tLen > 1 && (timestamps[tLen - 1] - timestamps[0] > 5000)) {
+        // if the earliest (first) timestamp added is older than 5 seconds, remove it
+        timestamps.shift();
+      }
+
+      if (timestamps.length >= 3) {
+        console.log(`WARNING: the battery temperature has exceeded the 
+          accepted range more than 3 times in the last 5 seconds!`);
+      }
+
       // Send JSON over WS to frontend clients
       websocketServer.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
@@ -43,6 +67,7 @@ tcpServer.on("connection", (socket) => {
     }
 
     
+
   });
 
   socket.on("end", () => {
