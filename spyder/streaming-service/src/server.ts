@@ -28,20 +28,22 @@ tcpServer.on("connection", (socket) => {
     console.log(`Received: ${message}`);
 
     const battTempString = battTemp.toString();
-    var isFloat = true;
+    var isFloat = false;
 
     // checks if the battery temperature passed is a number, and then
     // checks if the string of said number includes a decimal point.
-    if (Number.isInteger(battTemp) && battTempString.includes(".")) {
-      isFloat = false;
+    if (typeof battTemp === "number") {
+      if (Number.isInteger(battTemp)) {
+        if (battTempString.includes(".")) {
+          isFloat = true;
+        }
+      } else {
+        isFloat = true;
+      }
     }
 
-    // TASK 2
-
-    if (typeof battTemp === "number" && isFloat) {
-
+    if (isFloat) {
       // TASK 2
-      
       if (battTemp > 80 || battTemp < 20) {
         timestamps.push(msgJson.timestamp);
       }
