@@ -22,4 +22,9 @@ This file is used to document your thoughts, approaches and research conducted a
 - I found an issue with my logic for checking if a data entry was a float or not, so I rectified it
 
 
+### Task 3
+- First, I checked the UI source code to look for any red flags. I noticed that the update for the "Connection" label was handled using a useEffect hook with readyState. I also noticed that there was a "connectionStatus" state, and the issue could've been there as well. Looking further, I also noticed that, in the HTML code returned, that the "Badge" tag had a condition on the variant.
+- I ruled out the "Badge" variant condition as an issue, since it already displays and wouldn't affect the inner text. I also didn't see an issue with the use of the "connectionStatus" state, so I directed my attention to the use of "readyState" in the useEffect hook.
+- The logic of the switch case appeared to be sound. However, unlike the other useEffect hooks, I noticed that the hook in question didn't contain any dependencies. This means that it wouldn't have made React re-render the page once the readyState or connectionStatus were updated, and only set the Badge text on the first render. I added these two dependencies to the hook, and it appeared to function as required.
+
 ## Cloud
