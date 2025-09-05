@@ -89,3 +89,17 @@ code {
   }
 }
 
+@layer utilities {
+  .redTemp {
+    @apply text-red-700;
+  }
+
+  .yellowTemp {
+    @apply text-amber-400;
+  }
+
+  .greenTemp {
+    @apply text-emerald-500;
+  }
+}
+

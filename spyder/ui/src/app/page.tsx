@@ -98,7 +98,7 @@ export default function Page(): JSX.Element {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center">
-            <Numeric temp={temperature} />
+            <Numeric temp={temperature.toFixed(3)} />
           </CardContent>
         </Card>
       </main>

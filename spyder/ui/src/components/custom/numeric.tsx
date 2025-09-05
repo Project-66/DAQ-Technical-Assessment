@@ -1,5 +1,18 @@
+import { cn } from "../../lib/utils"
+
+
 interface TemperatureProps {
   temp: any;
+}
+
+function tempColour(temp: number) {
+  if (temp > 80 || temp < 20) {
+    return "redTemp";
+  } else if ((temp >= 75 && temp <= 80) || (temp >= 20 && temp <= 25)) {
+    return "yellowTemp";
+  } else {
+    return "greenTemp";
+  }
 }
 
 /**
@@ -18,7 +31,7 @@ function Numeric({ temp }: TemperatureProps) {
   // Justify your choice of implementation in brainstorming.md
 
   return (
-    <div className="text-foreground text-4xl font-bold">
+    <div className={cn("text-foreground text-4xl font-bold",  tempColour(temp))}>
       {`${temp}°C`}
     </div>
   );
