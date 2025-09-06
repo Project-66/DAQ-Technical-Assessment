@@ -44,19 +44,19 @@ export default function DataWrapper({ children }: { children: React.ReactNode })
         setTemperature(lastJsonMessage.battery_temperature)
 
         const currTemp: VehicleData = {
-        battery_temperature: lastJsonMessage.battery_temperature,
-        timestamp: lastJsonMessage.timestamp
+            battery_temperature: lastJsonMessage.battery_temperature,
+            timestamp: lastJsonMessage.timestamp
         }
 
         // only keeps the last 30 seconds of data on the graph
-        setTempData(prev => {
-            const updated = [...prev, currTemp];
-            const cutoff = currTemp.timestamp - 30000;
-            return updated.filter(item => item.timestamp >= cutoff);
-        });
+        const update = [...tempData, currTemp];
+        const cutoff = currTemp.timestamp - 30000;
+        const latestData = update.filter(entry => entry.timestamp >= cutoff);
 
-        const warningDataLen = tempData
-            .filter(curr => curr.timestamp > (tempData[tempData.length - 1].timestamp - 5000))
+        setTempData(latestData);
+
+        const warningDataLen = latestData
+            .filter(curr => curr.timestamp > (latestData[latestData.length - 1].timestamp - 5000))
             .filter(curr => curr.battery_temperature > 80 || curr.battery_temperature < 20)
             .length;
 
