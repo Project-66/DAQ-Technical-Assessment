@@ -31,5 +31,12 @@ This file is used to document your thoughts, approaches and research conducted a
 ### Task 4
 - **Rounding Temperature**: this was relatively simple, using the toFixed function. I rounded the temperature on the frontend, as opposed to the server end, in case other recipients of the data need a more accurate temperature reading.
 - **Temperature Colours**: for this, I used the cn function that was provided. Looking at the code, it appears to just merge the classes together. So, I gave it the classes that were already set, and added a second parameter for the conditional colour class. I abstracted this code into its own function, for readability. I created classes in global.css within the utilities layer, and used colours from the tailwind framework (red, amber, and emerald). I felt that these looked nicest in the dark mode colour scheme. However, if I add a light mode feature later on, I may need to review these choices to ensure readability, or just add a separate collection of classes for light mode colours.
+- **Additional Features**
+    1. Light mode toggle: adding this was relatively simple, I just removed the "setTheme" useEffect hook, since this just reset the theme to dark mode every time, and just added a new button in the header bar. 
+    2. Temperature Graph: for this, I opted to just show the last 30 seconds of data, so its easier to view recent performance. I guess an extension of this in future would be to show the temperature across a lap, when practicing, and multiple lines could be shown to display the temperature increase across multiple laps at each part of the track. I also wanted to have the line be 3 separate colours, so that it would align with the colour temps from earlier, but I couldn't find an easy and clean way to achieve this. I also considered having it change, like the temperature numeric, but this may appear jarring, and just conveys the same information again (doesn't really add any value, other than aesthetics). I also added a tooltip, so the values themselves are more easily visible.
+    3. Temperature Warning: this basically displays the same warning from Task 2, just on the main screen instead.
+    4. OTHER IDEAS I HAD (but wasn't able to do since I'm not feeling well)
+        1. Random Temperature Metrics: shows the range, median, and mean temperature across the last 30 seconds.
+        2. A counter for the number of warnings received since the program started running
 
 ## Cloud
