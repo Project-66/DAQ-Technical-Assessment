@@ -49,8 +49,7 @@ tcpServer.on("connection", (socket) => {
       }
 
       // check if the array has entries before iterating, to prevent runtime errors
-      const tLen = timestamps.length;
-      while (tLen > 1 && (timestamps[tLen - 1] - timestamps[0] > 5000)) {
+      while (timestamps.length > 1 && (timestamps[timestamps.length - 1] - timestamps[0] > 5000)) {
         // if the earliest (first) timestamp added is older than 5 seconds, remove it
         timestamps.shift();
       }

@@ -20,6 +20,7 @@ This file is used to document your thoughts, approaches and research conducted a
 - For this task, I immediately decided to use an array to store the relevant timestamps. First, the data received would be cleaned as per Task 1, and then it would check if it exceeded the range of 20-80 degrees. 
 - My code's logic seemed sound, but it wasn't printing anything in the console. Then I realised that I had forgotten to write it as a global array, rather writing it within the server call (meaning it reset with each new entry).
 - I found an issue with my logic for checking if a data entry was a float or not, so I rectified it
+- Found another issue with me using a tLen variable (since, if the array was shortened, then the length would be updated, but this wouldn't be reflected in the tLen variable)
 
 
 ### Task 3
