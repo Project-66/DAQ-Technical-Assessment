@@ -39,4 +39,8 @@ This file is used to document your thoughts, approaches and research conducted a
         1. Random Temperature Metrics: shows the range, median, and mean temperature across the last 30 seconds.
         2. A counter for the number of warnings received since the program started running
 
+### Task 5 (Optional)
+- Learning about React Contexts was definitely interesting, but I could immediately see the use in helping to separate data-handling and UI code neatly. Implementing it wasn't too difficult, I just refactored the useEffect hooks from the page.tsx file into the new data-wrapper.tsx file, and then added it to the layout.tsx file as a wrapper for the children. 
+- Once I got this working, I then refactored the cards that I had added into their own component files, which I kept in a "dataUI" folder. I thought about moving these into the components folder, but I felt that those files were reserved for more reusable pieces of code, whereas I wrote these specifically for this page. They can be moved there later on without much trouble if needed, though.
+
 ## Cloud

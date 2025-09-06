@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import { Metadata } from "next"
 import { ThemeProvider } from "@/components/custom/theme-provider";
+import DataWrapper from "./data-wrapper"
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -27,7 +28,11 @@ export default function RootLayout({
             <body className={`${roboto.className}`}>
                 <ThemeProvider> {/* Provides the dark/light next js theming for the web page */}
                     <noscript>You need to enable JavaScript to run this app.</noscript>
-                    <div id="root">{children}</div>
+                    <div id="root">
+                        <DataWrapper>
+                            {children}
+                        </DataWrapper>
+                    </div>
                 </ThemeProvider>
             </body>
         </html>
